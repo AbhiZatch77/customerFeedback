@@ -1,0 +1,42 @@
+<h1>Feedback Form</h1>
+<div class="form-box">
+
+    <div class="textup" *ngIf="feedbackForm.dirty && feedbackForm.invalid">Enter valid values</div>
+    <form (ngSubmit)="!feedbackForm.invalid && submitFeedback()" #feedbackForm="ngForm">
+      
+      <label>
+        Name
+      </label>
+      <input type="text" #desc="ngModel"
+        [(ngModel)]="feedback.name" class="form-control" 
+          name="name" minlength="5" required="required">
+      
+      <label for="Email Address"> <i class="fa fa-solid fa-envelope"></i> 
+        Email Address 
+      </label> 
+      <input type="email" name="email" 
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="feedback.email" required> 
+
+      <label for="phone">
+        Phone No 
+      </label> 
+      <input type="tel" #phone="ngModel" [(ngModel)]="feedback.phone" class="form-control" 
+        name="description" minlength="10" maxlength="10" pattern="[0-9]{10}" required="required"> 
+  
+      <label>
+        Please rate our service from 1 to 5
+      </label> 
+      <input type="number" class="form-control" id="rating" name="rating" 
+        [(ngModel)]="feedback.rating" min="1" max="5" required>         
+
+      <label for="msg">
+        Write your Suggestions: 
+      </label> 
+      <textarea id="msg" name="msg" rows="4" cols="10" [(ngModel)]="feedback.message"></textarea>
+
+      <br>
+      <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    
+
+</div>
