@@ -13,11 +13,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   feedback = {
-    name: '',
     email: '',
-    rating: 5,
-    phone: '',
-    message: ''
+    message: '',
+    mood: ''
   };
 
   constructor(private http: HttpClient) { }

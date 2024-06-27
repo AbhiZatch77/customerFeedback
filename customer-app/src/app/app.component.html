@@ -1,42 +1,81 @@
-<h1>Feedback Form</h1>
-<div class="form-box">
+<h2>Customer Feedback Comments</h2>
+<div *ngIf="feedbackForm.dirty && feedbackForm.invalid">Enter valid values</div>
+<form
+  (ngSubmit)="!feedbackForm.invalid && submitFeedback()"
+  #feedbackForm="ngForm"
+  class="feedback-form"
+>
+  <div class="form-group">
+    <textarea
+      id="msg"
+      name="msg"
+      rows="10"
+      cols="71"
+      [(ngModel)]="feedback.message"
+      placeholder="Great service! Would recommend again."
+    ></textarea>
+  </div>
 
-    <div class="textup" *ngIf="feedbackForm.dirty && feedbackForm.invalid">Enter valid values</div>
-    <form (ngSubmit)="!feedbackForm.invalid && submitFeedback()" #feedbackForm="ngForm">
-      
-      <label>
-        Name
-      </label>
-      <input type="text" #desc="ngModel"
-        [(ngModel)]="feedback.name" class="form-control" 
-          name="name" minlength="5" required="required">
-      
-      <label for="Email Address"> <i class="fa fa-solid fa-envelope"></i> 
-        Email Address 
-      </label> 
-      <input type="email" name="email" 
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="feedback.email" required> 
+  <br />
+  <div class="mood-group">
+    <fieldset class="mood-fieldset">
+      <label>Satisfaction Rating:</label> <br/><br />
 
-      <label for="phone">
-        Phone No 
-      </label> 
-      <input type="tel" #phone="ngModel" [(ngModel)]="feedback.phone" class="form-control" 
-        name="description" minlength="10" maxlength="10" pattern="[0-9]{10}" required="required"> 
-  
-      <label>
-        Please rate our service from 1 to 5
-      </label> 
-      <input type="number" class="form-control" id="rating" name="rating" 
-        [(ngModel)]="feedback.rating" min="1" max="5" required>         
+      <input
+        class="form-check-input"
+        type="radio"
+        id="happy"
+        name="mood"
+        value="happy"
+        [(ngModel)]="feedback.mood"
+        required
+      />
+      <label class="form-check-label" for="happy">Happy</label>
+      <br />
 
-      <label for="msg">
-        Write your Suggestions: 
-      </label> 
-      <textarea id="msg" name="msg" rows="4" cols="10" [(ngModel)]="feedback.message"></textarea>
+      <input
+        class="form-check-input"
+        type="radio"
+        id="veryHappy"
+        name="mood"
+        value="veryHappy"
+        [(ngModel)]="feedback.mood"
+      />
+      <label class="form-check-label" for="veryHappy">Very Happy</label>
 
-      <br>
-      <button type="submit" class="btn btn-success">Save</button>
-    </form>
-    
+      <input
+        class="form-check-input"
+        type="radio"
+        id="sad"
+        name="mood"
+        value="sad"
+        [(ngModel)]="feedback.mood"
+      />
+      <label class="form-check-label" for="sad">Sad</label>
 
-</div>
+      <div
+        *ngIf="
+          feedbackForm.controls['mood'].invalid &&
+          (feedbackForm.controls['mood'].dirty ||
+            feedbackForm.controls['mood'].touched)
+        "
+        class="text-danger"
+      >
+      </div>
+    </fieldset>
+  </div>
+  <div class="form-group">
+    <label for="Customer Email Address"> Email Address </label>
+    <br>
+    <input
+      type="email"
+      name="email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      [(ngModel)]="feedback.email"
+      required
+    />
+  </div>
+
+  <br />
+  <button type="submit" class="btn btn-success">Save</button>
+</form>
