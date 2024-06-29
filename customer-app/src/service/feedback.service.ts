@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class FeedbackService {
 
-  private apiUrl = 'http://localhost:8080/api/feedback/hello';
+  private apiUrl = 'http://localhost:8080/api/feedback/save';
 
   constructor(private http: HttpClient) { }
 
