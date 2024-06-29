@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { FeedbackService } from '../service/feedback.service';
+import { Feedback } from '../dto/feedback.model';
+import { response } from 'express';
 
 @Component({
   selector: 'app-root',
@@ -12,27 +15,19 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  feedback = {
-    email: '',
-    message: '',
-    mood: ''
-  };
-
-  constructor(private http: HttpClient) { }
+  
+  feedback : Feedback = new Feedback("test@test.com","test messgae","Moderately unhappy");
+  
+  constructor(private http: HttpClient,private feedbackService: FeedbackService) { 
+  }
 
   submitFeedback() {
-    console.log('Feedback submitted successfully!');
-    // Assuming your backend endpoint is at '/api/feedback'
-    // this.http.post('/api/feedback', this.feedback)
-    //   .subscribe(
-    //     response => {
-    //       console.log('Feedback submitted successfully!', response);
-    //       //reset form
-    //       //this.feedback = { name: '', email: '', phone: '', rating: 5, message: '' };
-    //     },
-    //     error => {
-    //       console.error('Error submitting feedback:', error);
-    //     }
-    //   );
+    //call servcie
+    console.log("clicked");
+    this.feedbackService?.submitFeedback(this.feedback).subscribe(
+      response => {
+        console.log("Feedback saved Successfully",response);
+      }
+    );
   }
 }
